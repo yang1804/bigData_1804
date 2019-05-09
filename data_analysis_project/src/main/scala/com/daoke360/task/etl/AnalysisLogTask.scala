@@ -20,35 +20,14 @@ import scala.collection.mutable
   * Created by 华硕电脑 on 2019/4/26.
   */
 object AnalysisLogTask extends BaseTask{
-var inputDate: String = null
+
   var inputPath: String = null
   //输入记录数的累加器
   val inputRecordAccumulator = sc.longAccumulator("inputRecordAccumulator")
   //过滤记录数累加器
   val filterRecordAccumulator = sc.longAccumulator("filterRecordAccumulator")
-  /**
-    * 验证参数是否正确
-    * 1,验证参数的个数  >=1
-    * 2,验证参数的各是 yyyy-MM-dd
-    * @param args
-    */
-  private def validateInputArgs(args: Array[String]) = {
-    if(args.length == 0){
-      throw new SparkException(
-        """
-          |Usage:com.daoke360.task.etl.AnalysisLogTask
-          |errorMessage:任务至少需要有一个日期参数
-        """.stripMargin)
-    }
-    if(!Utils.validateInputDate(args(0))){
-      throw new SparkException(
-        """
-          |Usage:com.daoke360.task.etl.AnalysisLogTask
-          |errorMessage:任务第一个参数是一个日期，日期的格式是：yyyy-MM-dd
-        """.stripMargin)
-    }
-    inputDate=args(0)
-  }
+
+
   /**
     * 2,验证当天是否存在用户行为日志
     * /logs/2019/04/24/xx.log
